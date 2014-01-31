@@ -59,6 +59,8 @@ public class Server {
 			Logger.log(Level.INFO, "Creating server.properties");
 		}
 		
+		properties.put("server-port", "3030");
+		
 		properties.load(new FileInputStream(file));
 		Logger.log(Level.INFO, "Loaded server.properties");
 	}
