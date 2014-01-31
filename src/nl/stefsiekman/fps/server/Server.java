@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.ServerSocket;
 import java.util.Properties;
 
 import tk.bartbart333.logger.ConsoleHandler;
@@ -20,6 +21,7 @@ public class Server {
 	private boolean gui = false;
 	private Handler handler;
 	private long begintime;
+	private ServerSocket server;
 	
 	public Server(){
 		init();
@@ -27,6 +29,7 @@ public class Server {
 		try{
 			serverfolder.mkdir();
 			loadProperties();
+			startServer();
 		}catch(FileNotFoundException e){
 			e.printStackTrace();
 		}catch(IOException e){
@@ -58,6 +61,16 @@ public class Server {
 		
 		properties.load(new FileInputStream(file));
 		Logger.log(Level.INFO, "Loaded server.properties");
+	}
+	
+	private void startServer() throws NumberFormatException{
+		int port = Integer.valueOf(properties.getProperty("server-port"));
+		
+		try{
+			server = new ServerSocket(port);
+		}catch(IOException e){
+			e.printStackTrace();
+		}
 	}
 	
 	public long getTime(){
