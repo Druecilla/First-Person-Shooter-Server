@@ -25,6 +25,7 @@ public class Server {
 		init();
 		
 		try{
+			serverfolder.mkdir();
 			loadProperties();
 		}catch(FileNotFoundException e){
 			e.printStackTrace();
